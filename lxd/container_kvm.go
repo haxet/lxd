@@ -11,7 +11,8 @@ import(
 func containerKVMCreate(d *Daemon, args containerArgs) (container, error) {
 	fmt.Println("Creating KVM container...")
 	// Create the container struct
-	c := &containerLXC{
+	c := &containerKVM{
+			&containerLXC{
 		daemon:       d,
 		id:           args.Id,
 		name:         args.Name,
@@ -24,6 +25,7 @@ func containerKVMCreate(d *Daemon, args containerArgs) (container, error) {
 		profiles:     args.Profiles,
 		localConfig:  args.Config,
 		localDevices: args.Devices,
+		},
 	}
 
 	// No need to detect storage here, its a new container.
@@ -116,7 +118,8 @@ func containerKVMLoad(d *Daemon, args containerArgs) (container, error) {
 	fmt.Println("Loading KVM container...")
 
 	// Create the container struct
-	c := &containerLXC{
+	c := &containerKVM{
+			&containerLXC{
 		daemon:       d,
 		id:           args.Id,
 		name:         args.Name,
@@ -128,7 +131,9 @@ func containerKVMLoad(d *Daemon, args containerArgs) (container, error) {
 		profiles:     args.Profiles,
 		localConfig:  args.Config,
 		localDevices: args.Devices,
-		stateful:     args.Stateful}
+		stateful:     args.Stateful
+		},
+	}
 
 	// Detect the storage backend
 	s, err := storageForFilename(d, shared.VarPath("containers", strings.Split(c.name, "/")[0]))
