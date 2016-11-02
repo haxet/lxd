@@ -14,6 +14,7 @@ type copyCmd struct {
 	profArgs profileList
 	confArgs configList
 	ephem    bool
+	kvm      bool
 }
 
 func (c *copyCmd) showByDefault() bool {
