@@ -72,7 +72,7 @@ func dbContainerGet(db *sql.DB, name string) (containerArgs, error) {
 	statefulInt := -1
 	q := "SELECT id, architecture, type, ephemeral, kvm, stateful, creation_date, last_use_date FROM containers WHERE name=?"
 	arg1 := []interface{}{name}
-	arg2 := []interface{}{&args.Id, &args.Architecture, &args.Ctype, &ephemInt, &kvmInt & statefulInt, &args.CreationDate, &used}
+	arg2 := []interface{}{&args.Id, &args.Architecture, &args.Ctype, &ephemInt, &kvmInt, &statefulInt, &args.CreationDate, &used}
 	err := dbQueryRowScan(db, q, arg1, arg2)
 	if err != nil {
 		return args, err
@@ -141,9 +141,9 @@ func dbContainerCreate(db *sql.DB, args containerArgs) (int, error) {
 	if args.Ephemeral == true {
 		ephemInt = 1
 	}
-
-	if kvmInt == 1 {
-		args.Kvm = true
+	kvmInt := 0
+	if args.kvm == true {
+		kvmInt = 1
 	}
 
 	statefulInt := 0

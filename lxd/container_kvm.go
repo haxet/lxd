@@ -1,9 +1,10 @@
-package main 
+package main
 
-import(
+import (
 	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/lxc/lxd/shared"
 )
@@ -12,19 +13,19 @@ func containerKVMCreate(d *Daemon, args containerArgs) (container, error) {
 	fmt.Println("Creating KVM container...")
 	// Create the container struct
 	c := &containerKVM{
-			&containerLXC{
-		daemon:       d,
-		id:           args.Id,
-		name:         args.Name,
-		ephemeral:    args.Ephemeral,
-		architecture: args.Architecture,
-		cType:        args.Ctype,
-		stateful:     args.Stateful,
-		creationDate: args.CreationDate,
-		lastUsedDate: args.LastUsedDate,
-		profiles:     args.Profiles,
-		localConfig:  args.Config,
-		localDevices: args.Devices,
+		&containerLXC{
+			daemon:       d,
+			id:           args.Id,
+			name:         args.Name,
+			ephemeral:    args.Ephemeral,
+			architecture: args.Architecture,
+			cType:        args.Ctype,
+			stateful:     args.Stateful,
+			creationDate: args.CreationDate,
+			lastUsedDate: args.LastUsedDate,
+			profiles:     args.Profiles,
+			localConfig:  args.Config,
+			localDevices: args.Devices,
 		},
 	}
 
@@ -119,19 +120,19 @@ func containerKVMLoad(d *Daemon, args containerArgs) (container, error) {
 
 	// Create the container struct
 	c := &containerKVM{
-			&containerLXC{
-		daemon:       d,
-		id:           args.Id,
-		name:         args.Name,
-		ephemeral:    args.Ephemeral,
-		architecture: args.Architecture,
-		cType:        args.Ctype,
-		creationDate: args.CreationDate,
-		lastUsedDate: args.LastUsedDate,
-		profiles:     args.Profiles,
-		localConfig:  args.Config,
-		localDevices: args.Devices,
-		stateful:     args.Stateful
+		&containerLXC{
+			daemon:       d,
+			id:           args.Id,
+			name:         args.Name,
+			ephemeral:    args.Ephemeral,
+			architecture: args.Architecture,
+			cType:        args.Ctype,
+			creationDate: args.CreationDate,
+			lastUsedDate: args.LastUsedDate,
+			profiles:     args.Profiles,
+			localConfig:  args.Config,
+			localDevices: args.Devices,
+			stateful:     args.Stateful,
 		},
 	}
 
@@ -151,20 +152,20 @@ func containerKVMLoad(d *Daemon, args containerArgs) (container, error) {
 	return c, nil
 }
 
-type containerKVM sturct{
+type containerKVM struct {
 	*containerLXC
 }
 
-func (c *containerKVM) Start(stateful bool) error{
+func (c *containerKVM) Start(stateful bool) error {
 	fmt.Println("Hello, KVM here!")
 	return c.containerLXC.Start(stateful)
 }
 
 func (c *containerKVM) Stop(stateful bool) error {
- 	fmt.Println("Stopping, KVM here!")
- 	return c.containerLXC.Stop(stateful)
- }
+	fmt.Println("Stopping, KVM here!")
+	return c.containerLXC.Stop(stateful)
+}
 func (c *containerKVM) Shutdown(timeout time.Duration) error {
- 	fmt.Println("Shutdown, KVM here!")
- 	return c.containerLXC.Shutdown(timeout)
- }
+	fmt.Println("Shutdown, KVM here!")
+	return c.containerLXC.Shutdown(timeout)
+}
