@@ -75,7 +75,7 @@ func (c *initCmd) usage() string {
 	return i18n.G(
 		`Initialize a container from a particular image.
 
-lxc init [remote:]<image> [remote:][<name>] [--ephemeral|-e] [--kvm|-k][--profile|-p <profile>...] [--config|-c <key=value>...] [--network|-n <network>]
+lxc init [remote:]<image> [remote:][<name>] [--ephemeral|-e] [--kvm|-k] [--profile|-p <profile>...] [--config|-c <key=value>...] [--network|-n <network>]
 
 Initializes a container using the specified image and name.
 

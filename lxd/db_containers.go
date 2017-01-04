@@ -87,7 +87,7 @@ func dbContainerGet(db *sql.DB, name string) (containerArgs, error) {
 	}
 
 	if kvmInt == 1 {
-		args.kvm = true
+		args.Kvm = true
 	}
 
 	if statefulInt == 1 {
@@ -141,8 +141,9 @@ func dbContainerCreate(db *sql.DB, args containerArgs) (int, error) {
 	if args.Ephemeral == true {
 		ephemInt = 1
 	}
+
 	kvmInt := 0
-	if args.kvm == true {
+	if args.Kvm == true {
 		kvmInt = 1
 	}
 
@@ -154,7 +155,7 @@ func dbContainerCreate(db *sql.DB, args containerArgs) (int, error) {
 	args.CreationDate = time.Now().UTC()
 	args.LastUsedDate = time.Unix(0, 0).UTC()
 
-	str := fmt.Sprintf("INSERT INTO containers (name, architecture, type, ephemeral, kvm, creation_date, last_use_date, stateful) VALUES (?,?, ?, ?, ?, ?, ?, ?)")
+	str := fmt.Sprintf("INSERT INTO containers (name, architecture, type, ephemeral, kvm, creation_date, last_use_date, stateful) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
 	stmt, err := tx.Prepare(str)
 	if err != nil {
 		tx.Rollback()

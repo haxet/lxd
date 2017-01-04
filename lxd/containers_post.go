@@ -52,7 +52,7 @@ type containerPostReq struct {
 	Config       map[string]string    `json:"config"`
 	Devices      shared.Devices       `json:"devices"`
 	Ephemeral    bool                 `json:"ephemeral"`
-	kvm          bool                 `json:"kvm"`
+	Kvm          bool                 `json:"kvm"`
 	Name         string               `json:"name"`
 	Profiles     []string             `json:"profiles"`
 	Source       containerImageSource `json:"source"`
@@ -152,7 +152,7 @@ func createFromImage(d *Daemon, req *containerPostReq) Response {
 			Ctype:        cTypeRegular,
 			Devices:      req.Devices,
 			Ephemeral:    req.Ephemeral,
-			kvm:          req.kvm,
+			Kvm:          req.Kvm,
 			Name:         req.Name,
 			Profiles:     req.Profiles,
 		}
@@ -184,7 +184,7 @@ func createFromNone(d *Daemon, req *containerPostReq) Response {
 		Ctype:        cTypeRegular,
 		Devices:      req.Devices,
 		Ephemeral:    req.Ephemeral,
-		kvm:          req.kvm,
+		Kvm:          req.Kvm,
 		Name:         req.Name,
 		Profiles:     req.Profiles,
 	}
@@ -222,7 +222,7 @@ func createFromMigration(d *Daemon, req *containerPostReq) Response {
 		Ctype:        cTypeRegular,
 		Devices:      req.Devices,
 		Ephemeral:    req.Ephemeral,
-		kvm:          req.kvm,
+		Kvm:          req.Kvm,
 		Name:         req.Name,
 		Profiles:     req.Profiles,
 	}
@@ -376,7 +376,7 @@ func createFromCopy(d *Daemon, req *containerPostReq) Response {
 		Ctype:        cTypeRegular,
 		Devices:      source.LocalDevices(),
 		Ephemeral:    req.Ephemeral,
-		kvm:          req.kvm,
+		Kvm:          req.Kvm,
 		Name:         req.Name,
 		Profiles:     req.Profiles,
 	}

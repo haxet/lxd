@@ -313,7 +313,7 @@ type containerArgs struct {
 	Ctype        containerType
 	Devices      shared.Devices
 	Ephemeral    bool
-	kvm          bool
+	Kvm          bool
 	Name         string
 	Profiles     []string
 	Stateful     bool
@@ -341,7 +341,7 @@ type container interface {
 	Update(newConfig containerArgs, userRequested bool) error
 
 	Delete() error
-	Export(w io.Writer, properties map[string]string) error
+	Export(w io.Writer) error
 
 	// Live configuration
 	CGroupGet(key string) (string, error)
@@ -640,7 +640,7 @@ func containerCreateInternal(d *Daemon, args containerArgs) (container, error) {
 	args.CreationDate = dbArgs.CreationDate
 	args.LastUsedDate = dbArgs.LastUsedDate
 
-	if args.kvm {
+	if args.Kvm {
 		return containerKVMCreate(d, args)
 	}
 
@@ -687,7 +687,7 @@ func containerLoadByName(d *Daemon, name string) (container, error) {
 		return nil, err
 	}
 
-	if args.kvm {
+	if args.Kvm {
 		return containerKVMLoad(d, args)
 	}
 

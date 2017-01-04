@@ -8,8 +8,6 @@ import (
 	"encoding/json"
 	"encoding/pem"
 	"fmt"
-	"github.com/gorilla/websocket"
-	"github.com/lxc/lxd/shared"
 	"io"
 	"io/ioutil"
 	"mime"
@@ -23,6 +21,10 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
+
+	"github.com/gorilla/websocket"
+
+	"github.com/lxc/lxd/shared"
 )
 
 // Client can talk to a LXD daemon.
@@ -1318,7 +1320,7 @@ func (c *Client) GetAlias(alias string) string {
 
 // Init creates a container from either a fingerprint or an alias; you must
 // provide at least one.
-func (c *Client) Init(name string, imgremote string, image string, profiles *[]string, config map[string]string, devices shared.Devices, kvm bool, ephem bool) (*Response, error) {
+func (c *Client) Init(name string, imgremote string, image string, profiles *[]string, config map[string]string, devices shared.Devices, ephem, kvm bool) (*Response, error) {
 	if c.Remote.Public {
 		return nil, fmt.Errorf("This function isn't supported by public remotes.")
 	}
@@ -1465,7 +1467,7 @@ func (c *Client) Init(name string, imgremote string, image string, profiles *[]s
 	return resp, nil
 }
 
-func (c *Client) LocalCopy(source string, name string, config map[string]string, profiles []string, ephemeral bool, kvm bool) (*Response, error) {
+func (c *Client) LocalCopy(source string, name string, config map[string]string, profiles []string, ephemeral, kvm bool) (*Response, error) {
 	if c.Remote.Public {
 		return nil, fmt.Errorf("This function isn't supported by public remotes.")
 	}
@@ -2004,7 +2006,7 @@ func (c *Client) GetMigrationSourceWS(container string) (*Response, error) {
 func (c *Client) MigrateFrom(name string, operation string, certificate string,
 	sourceSecrets map[string]string, architecture string, config map[string]string,
 	devices shared.Devices, profiles []string,
-	baseImage string, ephemeral bool, kvm bool, push bool, sourceClient *Client,
+	baseImage string, ephemeral, kvm bool, push bool, sourceClient *Client,
 	sourceOperation string) (*Response, error) {
 	if c.Remote.Public {
 		return nil, fmt.Errorf("This function isn't supported by public remotes.")

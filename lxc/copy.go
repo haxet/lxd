@@ -35,11 +35,11 @@ func (c *copyCmd) flags() {
 	gnuflag.Var(&c.profArgs, "p", i18n.G("Profile to apply to the new container"))
 	gnuflag.BoolVar(&c.ephem, "ephemeral", false, i18n.G("Ephemeral container"))
 	gnuflag.BoolVar(&c.ephem, "e", false, i18n.G("Ephemeral container"))
-	gnuflag.BoolVar(&c.kvm, "kvm", false, i18n.G("KVM Container"))
-	gnuflag.BoolVar(&c.kvm, "k", false, i18n.G("KVM Container"))
+	gnuflag.BoolVar(&c.kvm, "kvm", false, i18n.G("KVM container"))
+	gnuflag.BoolVar(&c.kvm, "k", false, i18n.G("KVM container"))
 }
 
-func (c *copyCmd) copyContainer(config *lxd.Config, sourceResource string, destResource string, keepVolatile bool, ephemeral int, kvm int) error {
+func (c *copyCmd) copyContainer(config *lxd.Config, sourceResource string, destResource string, keepVolatile bool, ephemeral, kvm int) error {
 	sourceRemote, sourceName := config.ParseRemoteAndContainer(sourceResource)
 	destRemote, destName := config.ParseRemoteAndContainer(destResource)
 
