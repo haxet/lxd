@@ -9,8 +9,10 @@ import (
 	"github.com/lxc/lxd/shared"
 )
 
+// Loader functions
 func containerKVMCreate(d *Daemon, args containerArgs) (container, error) {
 	fmt.Println("Creating KVM container...")
+
 	// Create the container struct
 	c := &containerKVM{
 		&containerLXC{
@@ -152,6 +154,7 @@ func containerKVMLoad(d *Daemon, args containerArgs) (container, error) {
 	return c, nil
 }
 
+// The KVM container driver
 type containerKVM struct {
 	*containerLXC
 }
@@ -165,6 +168,7 @@ func (c *containerKVM) Stop(stateful bool) error {
 	fmt.Println("Stopping, KVM here!")
 	return c.containerLXC.Stop(stateful)
 }
+
 func (c *containerKVM) Shutdown(timeout time.Duration) error {
 	fmt.Println("Shutdown, KVM here!")
 	return c.containerLXC.Shutdown(timeout)
